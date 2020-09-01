@@ -1,3 +1,14 @@
+% sysctl, power
+
+# Set Battery START Charge Threshold
+echo <THRESHOLD> | sudo tee /sys/class/power_supply/<BATTERY>/charge_start_threshold
+
+# Set Battery STOP Charge Threshold
+echo <THRESHOLD> | sudo tee /sys/class/power_supply/<BATTERY>/charge_stop_threshold
+
+$ THRESHOLD: seq 0 5 100
+$ BATTERY: ls /sys/class/power_supply/ | grep -oe 'BAT[0-9]' | sort | uniq
+
 % sysctl, security
 
 # Block ICMP pings

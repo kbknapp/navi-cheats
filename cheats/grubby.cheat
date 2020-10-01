@@ -1,0 +1,4 @@
+% grubby,kernel
+
+# Disable CGroups v2 / Enable CGroups v1
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"

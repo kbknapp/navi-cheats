@@ -1,5 +1,8 @@
 % dnf
 
+# List files in existing RPM
+sudo dnf repoquery list --installed -l <EXISTING_RPM>
+
 # Disable repository
 sudo dnf config-manager --set-disabled <EXISTING_REPO>
 
@@ -7,3 +10,4 @@ sudo dnf config-manager --set-disabled <EXISTING_REPO>
 sudo dnf config-manager --add-repo <REPOSITORY>
 
 $ EXISTING_REPO: dnf repolist | awk '{print $1}'
+$ EXISTING_RPM: rpm -qa | grep -oP '^[^.]*(?=-[0-9])'

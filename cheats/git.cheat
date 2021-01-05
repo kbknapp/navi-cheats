@@ -111,6 +111,9 @@ git log --all <FILES>
 # Show/Display short log for files
 git log --oneline --all <FILES>
 
+# Clean subproject dirty error
+git submodule foreach --recursive git checkout .
+
 $ branch: git branch | awk '{print $NF}'
 $ toplevel_dir: git rev-parse --show-toplevel
 $ HASH: git log --oneline --all | cat --- --map "echo $0 | awk '{print $1}'"

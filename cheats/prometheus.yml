@@ -1,0 +1,11 @@
+% prometheus
+# Reload configuration
+killall -HUP prometheus
+
+# Run query from curl
+curl <HOST>:<PORT>/api/v1/query --data-urlencode "<QUERY>"
+
+# Run range query from curl
+curl "<HOST>:<PORT>/api/v1/query_range?query=<QUERY>&start=<START>&end=<END>&step=<STEP>"
+
+$ PORT: echo {0..65535} | tr ' ' '\n'

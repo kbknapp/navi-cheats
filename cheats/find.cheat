@@ -6,4 +6,7 @@ find <ROOT_DIR> -type <TYPE> \( ! -name "<ROOT_DIR>/<EXCLUDE_DIR>/*" \)
 # Delete empty directories
 find <ROOT_DIR> -type d -empty -delete
 
+# Find Duplicate Files
+find <ROOT_DIR> ! -empty -type f -exec md5sum {} + | sort | uniq -w32 -dD
+
 $ TYPE: echo 'f d' | tr ' ' '\n'

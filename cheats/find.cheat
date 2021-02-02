@@ -9,4 +9,7 @@ find <ROOT_DIR> -type d -empty -delete
 # Find Duplicate Files
 find <ROOT_DIR> ! -empty -type f -exec md5sum {} + | sort | uniq -w32 -dD
 
+# Find binary files (non-empty)
+find <ROOT_DIR> -type f ! -size 0 -exec grep -IL <ROOT_DIR> "{}" \;
+
 $ TYPE: echo 'f d' | tr ' ' '\n'

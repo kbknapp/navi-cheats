@@ -68,6 +68,11 @@ openssl req -noout -modulus -in <INPUT_CSR> | openssl md5
 openssl s_client -connect <URL>:<PORT>
 
 
+# Pull SSL or TLS certificate from a site
+echo | \
+    openssl s_client -servername <SERVER> -connect <SERVER>:<PORT> 2>/dev/null | \
+    openssl x509 -text
+
 
 # Sensible/common default alternatives
 $ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
@@ -79,3 +84,4 @@ $ INPUT_CSR:    ls -a | grep -e "\(.csr\)"             || ls -a
 $ INPUT_KEY:    ls -a | grep -e "\(.key\|.pem\)"       || ls -a
 $ INPUT_CRT:    ls -a | grep -e "\(.crt\|.cer\|.der\)" || ls -a
 $ INPUT_PEM:    ls -a | grep -e "\(.pem\)"             || ls -a
+$ PORT: echo {0..65535} | tr ' ' '\n'

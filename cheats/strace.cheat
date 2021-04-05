@@ -1,25 +1,24 @@
 % strace
 
 # Systemcalls for a command
-sudo strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> <CMD>
+strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> <CMD>
 
 # Systemcalls (with filter) for a command
-sudo strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> -e <FILTER_KIND>=<FILTER_SET>  <CMD>
+strace -e <EXPR_OPT>=<EXPR_SET> <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> <CMD>
 
 # Systemcalls for a running process PID
-sudo strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> -p <PID>
+strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> -p <PID>
 
 # Systemcalls (with filter) for a running process PID
-sudo strace <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> -e <FILTER_KIND>=<FILTER_SET> -p <PID>
+strace -e <EXPR_OPT>=<EXPR_SET> <SUMMARY> <QUIET> <FOLLOW_FORKS> <SYSCALL_TIMES> <SUCCESS_FAILED> <DECODE_FDS> -p <PID>
 
-$ PID: sudo ps aux | grep -v 'PID' | awk '{print $2"    "$11}' --- --column 1 --header "PID to attach to?"
+$ PID: ps aux | grep -v 'PID' | awk '{print $2"    "$11}' --- --column 1 --header "PID to attach to?"
 $ TIME_STAMPS: echo -e "-t\t\tabsolute;-tt\t\tabsolute usecs;-ttt\t\tabsolute UNIX time" | tr ';' '\n' --- --column 1 --header "Print Timestamps?"
 $ SUMMARY: echo -e "\t\tnone;-c\t\tsummary;-C\t\tsummary only" | tr ';' '\n' --- --column 1 --header "Print Summary?"
-$ QUIET: echo -e "\t\tnone;-q\t\tsuppress attach/detach;-qq\t\tsuppress exit status too;-qqq\t\tsupress all suppressible" | tr ';' '\n' --- --column 1 --header "Supress Messages?"
-
+$ QUIET: echo -e "\t\tnone;-q\t\tsuppress attach/detach;-qq\t\tsuppress exit status too;-qqq\t\tsupress all suppressible" | tr ';' '\n' --- --column 1 --header "Suppress output?"
 $ FOLLOW_FORKS: echo -e "\t\tno;-f\t\tfollow forks;-ff\t\tfollow forks and split output" | tr ';' '\n' --- --column 1 --header "Follow Forks?"
 $ SYSCALL_TIMES: echo -e "\t\tno;-T\t\ttime spent in syscalls" | tr ';' '\n' --- --column 1 --header "Display time spent in syscalls?"
 $ SUCCESS_FAILED: echo -e "\t\tdon't filter;-z\t\tsuccess only;-Z\t\tfailed only" | tr ';' '\n' --- --column 1 --header "Filter success or failed exits?"
 $ DECODE_FDS: echo -e "\t\tno;-yy\t\tdecode all fds" | tr ';' '\n' --- --column 1 --header "Decode File Descriptors?"
-$ FILTER_KIND: echo 'abbrev verbose raw read write quiet kvm decode-fds trace signal status' | tr ' ' '\n' --- --header "Filter Kind (or type custom)?"
-$ FILTER_SET: echo 'clock creds desc file fstat fstatfs ipc llstat memory net process pure signal stat statfs' | tr ' ' '\n' --- --header "Filter Set (or type custom)?"
+$ EXPR_OPT: echo 'trace abbrev verbose raw signal read write fault inject status quiet kvm decode-fds' | tr ' ' '\n' --- --header "Expression Option (or type custom)?"
+$ EXPR_SET: echo 'clock creds desc file fstat fstatfs ipc llstat memory net process pure signal stat statfs all none' | tr ' ' '\n' --- --header "Expression Set (or type custom)?"

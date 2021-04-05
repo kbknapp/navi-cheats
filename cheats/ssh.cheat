@@ -9,8 +9,11 @@ ssh -i <SSH_KEY> -D <PROXY_PORT> -q -C -N -f <USER>@<IP> -p <SSH_PORT>
 # Forward Local Port to Remote Host
 ssh -i <SSH_KEY> -L <LOCAL_PORT>:localhost:<REMOTE_PORT> -N -f <USER>@<IP>
 
-$ REMOTE_PORT: echo {0..65535} | tr ' ' '\n'
-$ LOCAL_PORT: echo {0..65535} | tr ' ' '\n'
-$ PROXY_PORT: echo {0..65535} | tr ' ' '\n'
-$ SSH_PORT: echo {0..65535} | tr ' ' '\n'
+# Generate Public Key from Private Key
+ssh-keygen -y -f <PRIVATE_KEY> > ${PRIVATE_KEY}.pub
+
+$ REMOTE_PORT: echo {0..65535} | tr ' ' '\n' --- --prevent-extra
+$ LOCAL_PORT: echo {0..65535} | tr ' ' '\n' --- --prevent-extra
+$ PROXY_PORT: echo {0..65535} | tr ' ' '\n' --- --prevent-extra
+$ SSH_PORT: echo {0..65535} | tr ' ' '\n' --- --prevent-extra
 $ SSH_KEY: find ~/.ssh/ -type f -name "*.pub" -exec basename {} .pub \;

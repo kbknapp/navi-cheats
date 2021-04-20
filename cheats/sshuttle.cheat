@@ -1,0 +1,4 @@
+% sshuttle, ssh
+
+# Tunnel all traffic through SSH (sshuttle)
+sshuttle -r <USER>@<HOST> 0.0.0.0/0

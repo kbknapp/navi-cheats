@@ -180,6 +180,85 @@ sudo exitsnoop <TS> <UTC> <FAILED> -p <PID> <PER_THREAD>
 # Trace exec() syscalls
 sudo execsnoop <TS> <FAILED> <QUOTE_ARGS> <TIME> -u <UID> -n <COMM> <PRINT_UID>
 
+# Trace file reads/writes by process
+sudo dirtop <NO_CLEAR> -s <SORT> -p <PID> -d <ROOT_DIR>
+
+# Trace file reads/writes by process (Intervals)
+sudo dirtop <NO_CLEAR> -s <SORT> -p <PID> -d <ROOT_DIR> <INT>
+
+# Trace file reads/writes by process (Intervals and Counts)
+sudo dirtop <NO_CLEAR> -s <SORT> -p <PID> -d <ROOT_DIR> <INT> <COUNT>
+
+# Trace direct reclaim
+sudo drsnoop <TS> <PRINT_UID> -p <PID> -t <TID> -u <UID> -d <DUR_IN_SECS> -n <COMM> <VERBOSE>
+
+# Summarize ext4 operation latencies
+sudo ext4dist <NO_TS> <USE_MS> -p <PID>
+
+# Summarize ext4 operation latencies (Intervals)
+sudo ext4dist <NO_TS> <USE_MS> -p <PID> <INT>
+
+# Summarize ext4 operation latencies (Intervals and Counts)
+sudo ext4dist <NO_TS> <USE_MS> -p <PID> <INT> <COUNT>
+
+# Trace TCP session state changes
+sudo tcpstate <TIME> <TS> <WIDE> <CSV> -L <L_PORT> -D <R_PORT>
+
+# Summarize lifespan of TCP sessions
+sudo tcplife <TIME> <TS> <WIDE> <CSV> -p <PID> -L <L_PORT> -D <R_PORT>
+
+# Trace TCP retransmits
+sudo tcpretrans <USE_COUNT> <LOSS_PROBE>
+
+# Summarize TCP send and aggregate by subnet
+sudo tcpsubnet <VERBOSE> <JSON> -f <FORMAT> -i <INT>
+
+# Summarize TCP send and aggregate by subnet (Custom Subnets)
+sudo tcpsubnet <VERBOSE> <JSON> -f <FORMAT> <SUBNETS>
+
+# Trace TCP SYN backlog size
+sudo tcpsynbl
+
+# Summarize TCP send/recv throughput by host
+sudo tcptop <NO_CLEAR> <NO_SUMMARY> -p <PID>
+
+# Summarize TCP send/recv throughput by host (Intervals)
+sudo tcptop <NO_CLEAR> <NO_SUMMARY> -p <PID> <INT>
+
+# Summarize TCP send/recv throughput by host (Intervals and Counts)
+sudo tcptop <NO_CLEAR> <NO_SUMMARY> -p <PID> <INT> <COUNT>
+
+# Trace open() syscalls
+sudo opensnoop <TS> <PRINT_UID> <FAILED> -p <PID> -t <TID> -u <UID> -d <DUR_IN_SECS> -n <COMM>
+
+# Trace Thread open() syscalls
+sudo threadsnoop
+
+# Trace TCP Connections
+sudo tcptracer <TS> -p <PID> -N <NETNS> <VERBOSE>
+
+# Trace sync() syscalls
+sudo syncsnoop
+
+# Trace stat() syscalls
+sudo statsnoop <TS> <FAILED> -p <PID>
+
+# Sream socket listens
+sudo solisten -p <PID> -n <NETNS> <SHOW_NETNS>
+
+# Display kernel tracepoints or USDT probes
+sudo tplist -p <PID> -l <LIB_OR_COMM> <VERBOSE> <FILTER>
+
+
+
+
+
+$ SHOW_NETNS: echo -e "\t\tno;--show-netns\t\tyes" | tr ';' '\n' --- --column 1 --header "Show network namespace"
+$ NO_SUMMARY: echo -e "\t\tno;-S\t\tyes" | tr ';' '\n' --- --column 1 --header "skip summary line"
+$ FORMAT: echo "b,k,m,B,K,M" | tr ',' '\n' --- --header "Byte Format?"
+$ LOSS_PROBE: echo -e "\t\tno;-l\t\tyes" | tr ';' '\n' --- --column 1 --header "Include tail loss probe attemps?"
+$ WIDE: echo -e "\t\tno;-w\t\tyes" | tr ';' '\n' --- --column 1 --header "Wide columns"
+$ SORT: echo "all,reads,writes,rbytes,wbytes" | tr ',' '\n' --- --header "Sort by?"
 $ PRINT_UID: echo -e "\t\tno;-U\t\tyes" | tr ';' '\n' --- --column 1 --header "Print the UID"
 $ QUOTE_ARGS: echo -e "\t\tno;-q\t\tyes" | tr ';' '\n' --- --column 1 --header "Quote arguments"
 $ UTC: echo -e "\t\tno;--utc\t\tyes" | tr ';' '\n' --- --column 1 --header "timestamp in UTC"
@@ -215,7 +294,7 @@ $ MAX_ROWS: echo {0..1000} | tr ' ' '\n'
 $ COUNT_BINDS: echo -e "\t\tno;--count\t\tyes" | tr ';' '\n' --- --column 1 --header "Count binds per src IP?"
 $ UNIQ: echo -e "\t\tno;--unique\t\tyes" | tr ';' '\n' --- --column 1 --header "Don't repeat duplicates?"
 $ NO_CLEAR: echo -e "\t\tno;-C\t\tyes" | tr ';' '\n' --- --column 1 --header "Don't clear the screen?"
-$ CSV: echo -e "\t\tno;-j\t\tyes" | tr ';' '\n' --- --column 1 --header "Output CSV?"
+$ CSV: echo -e "\t\tno;--csv\t\tyes" | tr ';' '\n' --- --column 1 --header "Output CSV?"
 $ CUMULATIVE: echo -e "\t\tno;-c\t\tyes" | tr ';' '\n' --- --column 1 --header "Cumulative Output?"
 $ ERRS: echo -e "\t\tno;-E\t\tyes" | tr ';' '\n' --- --column 1 --header "Include Errors in Output?"
 $ JSON: echo -e "\t\tno;-j\t\tyes" | tr ';' '\n' --- --column 1 --header "Output JSON?"

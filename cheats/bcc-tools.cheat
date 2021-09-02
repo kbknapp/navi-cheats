@@ -40,9 +40,6 @@ sudo bitesize
 sudo bpflist <MULT_VERBOSE>
 
 # Summarize btrfs operation latency
-sudo btrfsdist <NO_TS> <USE_MS>
-
-# Summarize btrfs operation latency
 sudo btrfsdist <NO_TS> <USE_MS> -p <PID>
 
 # Summarize btrfs operation latency (Intervals)
@@ -72,8 +69,8 @@ sudo cachetop <TS> <INT>
 # Trace security capability checks
 sudo capable -p <PID> <UNIQ> <VERBOSE>
 
-# Summarize object allocations
-sudo cobjnew <PID> <LANG> <VERBOSE> -C <COUNT> -S <TOP_SIZE>
+# Summarize object allocations in C
+sudo cobjnew <PID> -l c <VERBOSE> -C <COUNT> -S <TOP_SIZE>
 
 # Trace compact zone
 sudo compactsnoop <TS> -p <PID> -d <DUR_IN_SECS>
@@ -249,10 +246,234 @@ sudo solisten -p <PID> -n <NETNS> <SHOW_NETNS>
 # Display kernel tracepoints or USDT probes
 sudo tplist -p <PID> -l <LIB_OR_COMM> <VERBOSE> <FILTER>
 
+# Summarize method calls in php
+sudo phpcalls <PID> -l php <USE_LAT> <USE_SYSCALLS> <USE_MS>
+
+# Summarize method calls in php (Intervals)
+sudo phpcalls <PID> -l php <USE_LAT> <USE_SYSCALLS> <USE_MS> <INT>
+
+# Summarize method calls in Python
+sudo pythoncalls <PID> -l python <USE_LAT> <USE_SYSCALLS> <VERBOSE> <USE_MS>
+
+# Summarize method calls in Python (Intervals)
+sudo pythoncalls <PID> -l python <USE_LAT> <USE_SYSCALLS> <USE_MS> <VERBOSE> <INT>
+
+# Summarize method calls in Perl
+sudo perlcalls <PID> -l perl <USE_LAT> <USE_SYSCALLS> <VERBOSE> <USE_MS>
+
+# Summarize method calls in Perl (Intervals)
+sudo perlcalls <PID> -l perl <USE_LAT> <USE_SYSCALLS> <USE_MS> <VERBOSE> <INT>
+
+# Summarize method calls in Ruby
+sudo rubycalls <PID> -l ruby <USE_LAT> <USE_SYSCALLS> <VERBOSE> <USE_MS>
+
+# Summarize method calls in Ruby (Intervals)
+sudo rubycalls <PID> -l ruby <USE_LAT> <USE_SYSCALLS> <USE_MS> <VERBOSE> <INT>
+
+# Summarize method calls in tcl
+sudo tclcalls <PID> -l tcl <USE_LAT> <USE_SYSCALLS> <VERBOSE> <USE_MS>
+
+# Summarize method calls in tcl (Intervals)
+sudo tclcalls <PID> -l tcl <USE_LAT> <USE_SYSCALLS> <USE_MS> <VERBOSE> <INT>
+
+# Summarize method calls in java
+sudo javacalls <PID> -l java <USE_LAT> <USE_SYSCALLS> <VERBOSE> <USE_MS>
+
+# Summarize method calls in java (Intervals)
+sudo javacalls <PID> -l java <USE_LAT> <USE_SYSCALLS> <USE_MS> <VERBOSE> <INT>
+
+# Trace common ext4 operations slower than threshold
+sudo ext4slower <CSV> -p <PID>
+
+# Trace common ext4 operations slower than threshold (with Threshold)
+sudo ext4slower <CSV> -p <PID> <MS>
+
+# Trace stat() syscalls
+sudo filelife -p <PID>
+
+# Trace slow synchronous file reads/writes
+sudo fielslower -p <PID> <ALL>
+
+# Trace slow synchronous file reads/writes (with threshold)
+sudo fileslower -p <PID> <ALL> <MS>
+
+# Fail specified kernel functionality when call chain and predicates are met
+sudo inject <INJECT_CMD> <SPEC> -P 0.<PROB> -C <COUNT> <VERBOSE>
+
+# Summarize NFS operation latency
+sudo nfsdist <NO_TS> <USE_MS> -p <PID>
+
+# Summarize NFS operation latency (Intervals)
+sudo nfsdist <NO_TS> <USE_MS> -p <PID> <INT>
+
+# Summarize NFS operation latency (Intervals and counts)
+sudo nfsdist <NO_TS> <USE_MS> -p <PID> <INT> <COUNT>
+
+# Trace OOM kills
+sudo oomkill
+
+# Monitor perf of read ahead cache
+sudo readahead -d <DUR_IN_SECS>
+
+# Trace shm*() syscalls
+sudo shmsnoop <TS> -t <TID> -n <COMM> -p <PID> -d <DUR_IN_SECS>
+
+# Trace file descriptors passed via sockets
+sudo sofdsnoop <TS> -t <TID> -n <COMM> -p <PID> -d <DUR_IN_SECS>
+
+# Trace mount() and unmount() syscalls
+sudo mountsnoop
+
+# Trace PIDs per second
+sudo pidpersec
+
+# Summarize xfs operation latency
+sudo xfsdist <NO_TS> <USE_MS> -p <PID>
+
+# Summarize xfs operation latency (Intervals)
+sudo xfsdist <NO_TS> <USE_MS> -p <PID> <INT>
+
+# Summarize xfs operation latency (Intervals and Counts)
+sudo xfsdist <NO_TS> <USE_MS> -p <PID> <INT> <COUNT>
+
+# Summarize zfs operation latency
+sudo zfsdist <NO_TS> <USE_MS> -p <PID>
+
+# Summarize zfs operation latency (Intervals)
+sudo zfsdist <NO_TS> <USE_MS> -p <PID> <INT>
+
+# Summarize zfs operation latency (Intervals and Counts)
+sudo zfsdist <NO_TS> <USE_MS> -p <PID> <INT> <COUNT>
+
+# Summarize garbage collection events in NodeJS
+sudo nodegc <PID> -l node <VERBOSE> <MS>
+
+# Summarize garbage collection events in ruby
+sudo rubygc <PID> -l ruby <VERBOSE> <MS>
+
+# Summarize garbage collection events in python
+sudo pythongc <PID> -l python <VERBOSE> <MS>
+
+# Summarize garbage collection events in java
+sudo javagc <PID> -l java <VERBOSE> <MS>
+
+# Trace method execution flow in python
+sudo pythonflow <PID> -l python <VERBOSE> -M <METHOD_PREFIX>
+
+# Trace method execution flow in ruby
+sudo rubyflow <PID> -l ruby <VERBOSE> -M <METHOD_PREFIX>
+
+# Trace method execution flow in tcl
+sudo tclflow <PID> -l tcl <VERBOSE> -M <METHOD_PREFIX>
+
+# Trace method execution flow in java
+sudo javaflow <PID> -l java <VERBOSE> -M <METHOD_PREFIX>
+
+# Trace method execution flow in php
+sudo phpflow <PID> -l php <VERBOSE> -M <METHOD_PREFIX>
+
+# Trace method execution flow in perl
+sudo perlflow <PID> -l perl <VERBOSE> -M <METHOD_PREFIX>
+
+# Activity stats from ruby
+sudo rubystat -l ruby <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from ruby (Intervals)
+sudo rubystat -l ruby <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from ruby (Intervals and Counts)
+sudo rubystat -l ruby <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from php
+sudo phpstat -l php <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from php (Intervals)
+sudo phpstat -l php <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from php (Intervals and Counts)
+sudo phpstat -l php <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from tcl
+sudo tclstat -l tcl <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from tcl (Intervals)
+sudo tclstat -l tcl <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from tcl (Intervals and Counts)
+sudo tclstat -l tcl <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from java
+sudo javastat -l java <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from java (Intervals)
+sudo javastat -l java <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from java (Intervals and Counts)
+sudo javastat -l java <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from python
+sudo pythonstat -l python <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from python (Intervals)
+sudo pythonstat -l python <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from python (Intervals and Counts)
+sudo pythonstat -l python <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from perl
+sudo perlstat -l perl <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from perl (Intervals)
+sudo perlstat -l perl <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from perl (Intervals and Counts)
+sudo perlstat -l perl <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Activity stats from node
+sudo nodestat -l node <DEBUG> <NO_CLEAR> -S <SORT_BY>
+
+# Activity stats from node (Intervals)
+sudo nodestat -l node <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT>
+
+# Activity stats from node (Intervals and Counts)
+sudo nodestat -l node <DEBUG> <NO_CLEAR> -S <SORT_BY> <INT> <COUNT>
+
+# Summarize object allocations in ruby
+sudo rubyobjnew <PID> -l ruby <VERBOSE> -C <COUNT> -S <TOP_SIZE>
+
+# Summarize object allocations in tcl
+sudo tclobjnew <PID> -l tcl <VERBOSE> -C <COUNT> -S <TOP_SIZE>
+
+# Summarize object allocations in java
+sudo javaobjnew <PID> -l java <VERBOSE> -C <COUNT> -S <TOP_SIZE>
+
+# Count functions, tracepoints and USDT probes
+sudo funccount -p <PID> -i <INT> -d <DUR_IN_SECS> <TS> <DEBUG> <PATTERN>
+
+# Summarize function intervals and latencies
+sudo funcinterval -p <PID> -i <INT> -d <DUR_IN_SECS> <TS> <VERBOSE>
+
+# Summarize function latencies
+sudo funclatency -p <PID> -i <INT> -d <DUR_IN_SECS> <TS> <VERBOSE>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+$ SORT_BY: echo "cload,excp,gc,method,objnew,thread" | tr ',' '\n' --- --header "sort by"
+$ PROB: echo {01..99} | tr ' ' '\n'
+$ INJECT_CMD: echo "kmalloc,bio,alloc_page" | tr ',' '\n' --- --header "Base kernel fn to fail?"
+$ USE_SYSCALLS: echo -e "\t\tno;-S\t\tyes" | tr ';' '\n' --- --column 1 --header "collect syscalls?"
 $ SHOW_NETNS: echo -e "\t\tno;--show-netns\t\tyes" | tr ';' '\n' --- --column 1 --header "Show network namespace"
 $ NO_SUMMARY: echo -e "\t\tno;-S\t\tyes" | tr ';' '\n' --- --column 1 --header "skip summary line"
 $ FORMAT: echo "b,k,m,B,K,M" | tr ',' '\n' --- --header "Byte Format?"
@@ -283,7 +504,6 @@ $ DB: echo "mysql,postgres" | tr ',' '\n' --- --header "Which Datbase Engine?"
 $ TIDS: echo -e "\t\tno;-L\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by Thread IDs?"
 $ PIDS: echo -e "\t\tno;-P\t\tyes" | tr ';' '\n' --- --column 1 --header "Histogram by PID?"
 $ OFF_CPU: echo -e "\t\tno;-O\t\tyes" | tr ';' '\n' --- --column 1 --header "Measure off-cpu time?"
-$ LANG: echo "c,java,ruby,tcl" | tr ',' '\n' --- --header "Which Language?"
 $ LAT: echo "from-rq-alloc,after-rq-alloc,on-device" | tr ',' '\n' --- --header "Which Latency?"
 $ DEV: lsblk -l | awk '{print $1,$2}' | grep -v MAJ:MIN | tr ' ' '\n' --- --header "Block Device"
 $ INT: echo {0..1000} | tr ' ' '\n'

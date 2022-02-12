@@ -1,0 +1,27 @@
+% tmux
+
+# Start a named session
+tmux new -s <NAME>
+
+# Show all sessions
+tmux ls
+
+# Attach to the last session
+tmux a
+
+# Attach to a named session
+tmux a -t <CURRENT_SESSION>
+
+# Kill a named session
+tmux kill-ses -t <CURRENT_SESSION>
+
+# Kill all sesssions except the current
+tmux kill-ses -a
+
+# Kill all sessions except named
+tmux kill-ses -a -t <CURRNET_SESSION>
+
+# Reload config
+tmux source-file <PATH>
+
+$ CURRENT_SESSION: tmux ls | awk '{print $1}' | grep --only-matching -E '^[^:]+'

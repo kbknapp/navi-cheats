@@ -1,0 +1,25 @@
+% lxd, lxc
+
+# Add Host Proxy to VM/container
+lxc config device add <NODE> <NAME> proxy listen=tcp:<LISTEN_IP>:<LISTEN_PORT> connect=tcp:127.0.0.1:<NODE_PORT>
+
+# Enter Namespace of LXD
+sudo nsenter -t $(cat /var/snap/lxd/common/lxd.pid) -m
+
+# Remap UID or GID
+lxc launch <IMG> <NAME> -c raw.idmap="both <UID_FROM> <UID_TO>"
+
+# Make existing container privileged (requires restart)
+lxc config set <NODE> security.privileged=true
+
+# Restart containder
+lxc restart <NODE>
+
+# Allow nesting (docker) inside a container
+lxc config set <NODE> security.nesting=true
+
+$ NODE: lxc list --columns n --format csv
+$ NODE_PORT: echo {0..65535} | tr ' ' '\n'
+$ LISTEN_PORT: echo {0..65535} | tr ' ' '\n'
+$ UID_FROM: echo {0..4294967294} | tr ' ' '\n'
+$ UID_TO: echo {0..4294967294} | tr ' ' '\n'

@@ -1,0 +1,34 @@
+% iptables, firewall
+
+# show firewall rules
+sudo iptables -S
+
+# show firewall rules for a standard table
+sudo iptables -t <TABLE> -S
+
+# show firewall rules for a custom table
+sudo iptables -t <CUSTOM_TABLE> -S
+
+# show firewall rules for a standard table and chain
+sudo iptables -t <TABLE> -S <CHAIN>
+
+# show firewall rules for a custom table and chain
+sudo iptables -t <CUSTOM_TABLE> -S <CHAIN>
+
+# show rule counts
+sudo iptables -nvL
+
+# show rule counts for standard table
+sudo iptables -t <TABLE> -nvL
+
+# show rule counts for standard table and chain
+sudo iptables -t <TABLE> -nvL <CHAIN>
+
+# show rule counts for custom table
+sudo iptables -t <CUSTOM_TABLE> -nvL
+
+# show rule counts for custom table and chain
+sudo iptables -t <CUSTOM_TABLE> -nvL <CHAIN>
+
+$ TABLE: echo 'nat filter raw mangle' | tr ' ' '\n' --- --header "Expression Set (or type custom)?"
+

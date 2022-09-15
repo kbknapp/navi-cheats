@@ -42,6 +42,12 @@ docker logs --tail 100 <container_id> -f
 # Create new network
 docker network create <network_name>
 
+# Prune orphaned images
+docker image prune
+
+# Prune all unused images (not just orphans)
+# docker image prune --all
+
 $ image_id: docker images --- --headers 1 --column 3
 $ container_id: docker ps --- --headers 1 --column 1
 

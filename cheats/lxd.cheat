@@ -18,6 +18,12 @@ lxc restart <NODE>
 # Allow nesting (docker) inside a container
 lxc config set <NODE> security.nesting=true
 
+# Increase CPU core limits of a VM or container
+lxc config set <NODE> limits.cpu 4
+
+# Increase Memory limits of a VM or container (e.g. 2GB)
+lxc config set <NODE> limits.memory 4
+
 $ NODE: lxc list --columns n --format csv
 $ NODE_PORT: echo {0..65535} | tr ' ' '\n'
 $ LISTEN_PORT: echo {0..65535} | tr ' ' '\n'

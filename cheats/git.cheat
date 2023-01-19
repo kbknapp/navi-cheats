@@ -117,6 +117,12 @@ git submodule foreach --recursive git checkout .
 # Show diff against stash
 git stash show -p
 
+# Show files changed since branch
+git diff --name-status <branch>
+
+# Show files changed between branches
+git diff --name-status <FROM_branch>..<TO_branch>
+
 # Show/display what commits have landed in upstream from HEAD
 git fetch --all; git log --decorate --oneline HEAD..FETCH_HEAD
 
@@ -127,6 +133,8 @@ git fetch --all; git whatchanged --decorate --oneline HEAD..FETCH_HEAD
 git fetch --all; git diff --stat HEAD FETCH_HEAD
 
 $ branch: git branch | awk '{print $NF}'
+$ FROM_branch: git branch | awk '{print $NF}'
+$ TO_branch: git branch | awk '{print $NF}'
 $ toplevel_dir: git rev-parse --show-toplevel
 $ HASH: git log --oneline --all | cat --- --map "echo $0 | awk '{print $1}'"
 $ FILES: find $toplevel_dir -type f \( ! -name "$toplevel_dir/.git/*" \) 

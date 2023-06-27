@@ -1,0 +1,4 @@
+% minicom, console, serial
+
+# Connect to serial console
+sudo minicom -b 9600 -D /dev/ttyUSB0 -8

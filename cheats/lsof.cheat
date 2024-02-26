@@ -3,3 +3,64 @@
 # Show listening TCP ports
 sudo lsof -nP -iTCP -sTCP:LISTEN
 
+# List all IPv4 network files
+sudo lsof -i4
+
+# List all IPv6 network files
+sudo lsof -i6
+
+# List all open sockets
+lsof -i
+
+# List all listening ports
+lsof -Pnl +M -i4
+
+# Find which program is using the port
+lsof -i TCP:<PORT>
+
+# List all connections to a specific host:
+lsof -i@<HOST>
+
+# List all processes accessing a particular file/directory:
+lsof <PATH>
+
+# List all files open for a particular user:
+lsof -u <USER>
+
+# List all files/network connections a command is using:
+lsof -c <COMMAND>
+
+# List all files a process has open:
+lsof -p <PID>
+
+# List all files open mounted at /mount/point:
+lsof +f -- <MOUNT>
+
+ tldr:lsof
+
+# Find the processes that have a given file open:
+lsof <PATH>
+
+# Find the process that opened a local internet port:
+lsof -i :<PORT>
+
+# Only output the process ID (PID):
+lsof -t <PATH>
+
+# List files opened by the given user:
+lsof -u <USER>
+
+# List files opened by the given command or process:
+lsof -c <COMMAND>
+
+# List files opened by a specific process, given its PID:
+lsof -p <PID>
+
+# List open files in a directory:
+lsof +D <PATH>
+
+# Find the process that is listening on a local IPv6 TCP port and don't convert network or port numbers:
+lsof -i6TCP:<PORT> -sTCP:LISTEN -n -P
+
+$ PORT: echo {0..65535} | tr ' ' '\n'
+$ PID: ps aux | awk '{print $2}'

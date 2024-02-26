@@ -13,7 +13,7 @@ nmap -iL <PATH>
 nmap -p <PORT> <TGT>
 
 # Scan a port range
-nmap -p <START_PORT>-<END_PORT <TGT>
+nmap -p <START_PORT>-<END_PORT> <TGT>
 
 # Scan 100 most common ports
 nmap -F <TGT>

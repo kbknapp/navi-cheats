@@ -8,3 +8,6 @@ while true; do sleep <SECS>; sh -c "<CMD>" 2>&1 >/dev/null && { notify-send "<NA
 
 # Send notification upon command failure
 while true; do sleep <SECS>; sh -c "<CMD>" 2>&1 >/dev/null || { notify-send "<NAME> complete" && break }; done &
+
+# Determine if wayland or x11 sessions is running
+loginctl show-session $(awk '/tty/ {print $1}' <(loginctl)) -p Type

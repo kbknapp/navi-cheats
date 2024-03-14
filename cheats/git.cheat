@@ -1,5 +1,8 @@
 % git
 
+# Clone repository using specific SSH key
+git clone git@github.com:<user>/<repo>.git -c core.sshCommand="ssh -i ~/.ssh/<key>"
+
 # Set global git user name
 git config --global user.name <name>
 

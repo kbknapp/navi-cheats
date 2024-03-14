@@ -1,4 +1,15 @@
 % flatpak,flathub
 
-# Removed unused/orphan runtimes
+# Removed unused/orphan
 flatpak remove --unused
+
+# Remove runtime
+flatpak remove --runtime <RUNTIME>
+
+# List used runtimes
+flatpak list --app --columns=application | grep -v ID | awk '{print $1}' | xargs -I{} flatpak info --show-runtime {} | sort | uniq
+
+# List all applications using RUNTIME
+flatpak list --app-runtime <RUNTIME>
+
+$ RUNTIME: flatpak list --runtime --columns=application | grep -v ID | sort | uniq
